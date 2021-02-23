@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -27,7 +26,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
        
 		oauthServer.tokenKeyAccess("isAuthenticated()")
         	 .checkTokenAccess("isAuthenticated()");
-        
     }
     
 
@@ -47,8 +45,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 				.secret(encoder().encode("secret"))
 				.scopes("user_info", "read")
 				.redirectUris("https://localhost:8443/myapp/login/oauth2/code/way2learnappclient")
-				.autoApprove(true)
-							;
+				.autoApprove(true);
 	}
 	
 	
@@ -64,24 +61,23 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	}
 	
 
-	 @Bean
-	    public TokenStore tokenStore() {
-	        return new JwtTokenStore(accessTokenConverter());
-	    }
+	@Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(accessTokenConverter());
+    }
 
-	    @Bean
-	    public JwtAccessTokenConverter accessTokenConverter() {
-	        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-	        final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
-	        		new ClassPathResource("eventoas.jks"), "segredo".toCharArray());
-	         converter.setKeyPair(keyStoreKeyFactory.getKeyPair("authserver"));
-	        return converter;
-	    }
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
+        		new ClassPathResource("eventoas.jks"), "segredo".toCharArray());
+         converter.setKeyPair(keyStoreKeyFactory.getKeyPair("authserver"));
+        return converter;
+    }
 	    
 
 	@Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-	
 }

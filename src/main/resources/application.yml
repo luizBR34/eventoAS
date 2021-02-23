@@ -1,7 +1,10 @@
 logging:
   level:
     org.springframework.security.oauth2: DEBUG
-
+    
+eventocache:
+  endpoint:
+    uri: http://localhost:8585/eventoCache
 
 server:
   port: 8081
