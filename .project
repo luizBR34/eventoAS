@@ -3,6 +3,7 @@
 	<name>com.eventoAS</name>
 	<comment></comment>
 	<projects>
+		<project>services</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

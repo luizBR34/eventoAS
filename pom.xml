@@ -38,12 +38,7 @@
 				<artifactId>configs</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
-			<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>services</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+			
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>web</artifactId>
@@ -56,8 +51,7 @@
 	<modules>
 		<module>boot</module>
 		<module>configs</module>
-		<module>services</module>
 		<module>web</module>
 	</modules>
-
+	
 </project>

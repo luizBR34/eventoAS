@@ -15,12 +15,6 @@
 	
 	<dependencies>
 	<!-- MODULES DENPENDENCY START -->
-	
-        <dependency>
-            <groupId>com.eventoAS.services</groupId>
-            <artifactId>services</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 		
 	<!-- MODULES DENPENDENCY END -->
 		<dependency>

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.eventoAS"})
+@ComponentScan({"com.eventoAS", "com.eventoApp.services"})
 public class EventoAsApplication {
 
 	public static void main(String[] args) {
