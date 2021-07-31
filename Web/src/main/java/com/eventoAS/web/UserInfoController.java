@@ -21,7 +21,5 @@ public class UserInfoController {
 	        	userInfoMap.put("authorities", SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 	        	
 	          return userInfoMap;
-	     
 	    }
-
 }

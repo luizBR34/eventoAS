@@ -36,7 +36,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 				.authorizedGrantTypes("password","authorization_code")
 				.secret(encoder().encode("secret"))
 				.scopes("user_info","read","write")
-				.redirectUris("https://localhost:8443/myapp/login/oauth2/code/way2learnappclient")
+				.redirectUris("https://localhost:8443/myapp/login/oauth2/code/eventoas")
 				.autoApprove(true)
 				.and()
 				
