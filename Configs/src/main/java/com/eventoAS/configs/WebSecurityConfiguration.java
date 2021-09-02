@@ -1,6 +1,6 @@
 package com.eventoAS.configs;
 
-import com.eventoApp.services.UserService;
+import com.eventoRS.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,21 +21,27 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http
+		http.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/login").permitAll()
-		.antMatchers("/oauth/authorize")
-			.authenticated()
-			.and().formLogin()
-		.and().requestMatchers()
-        	.antMatchers("/login","/oauth/authorize");	
+		.antMatchers("/logar/**", "/logout/**").permitAll()
+		.antMatchers("/oauth/authorize/**").authenticated()
+		.and()
+			.formLogin()
+			.loginPage("http://localhost:4200/home?login=true")
+			.loginProcessingUrl("/logar/**")
+		.and()
+			.requestMatchers()
+			.antMatchers("/oauth/authorize/**", "/logar/**")
+		.and()
+			.logout()
+			.logoutUrl("/logout");
 	}
 	
 	

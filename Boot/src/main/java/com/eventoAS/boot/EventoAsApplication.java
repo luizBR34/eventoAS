@@ -6,8 +6,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableFeignClients("com.eventoApp.clients")
-@ComponentScan({"com.eventoAS", "com.eventoApp.services"})
+@EnableFeignClients("com.eventoRS.clients")
+@ComponentScan({"com.eventoAS", "com.eventoRS.services"})
 public class EventoAsApplication {
 
 	public static void main(String[] args) {
