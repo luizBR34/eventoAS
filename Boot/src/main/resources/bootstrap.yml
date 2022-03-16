@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: eventoas
+  cloud:
+    vault:
+      host: ${VAULT_HOST}
+      #host: localhost
+      port: 8200
+      scheme: http
+      #token: s.MvyZ4i7suJRAzO3tMVCRadPC
+      token: ${VAULT_ROOT_TOKEN}

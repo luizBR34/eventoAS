@@ -2,6 +2,7 @@ package com.eventoAS.configs;
 
 import com.eventoRS.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -22,6 +23,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserService userService;
 
+	@Value(value = "${eventoangular.endpoint.uri}")
+	private String eventoAngularHost;
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
@@ -34,7 +38,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/oauth/authorize/**").authenticated()
 		.and()
 			.formLogin()
-			.loginPage("http://localhost:4200/home?login=true")
+			.loginPage(eventoAngularHost + "/home?login=true")
 			.loginProcessingUrl("/logar/**")
 		.and()
 			.requestMatchers()

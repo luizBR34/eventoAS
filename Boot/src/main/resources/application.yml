@@ -1,10 +1,9 @@
 logging:
   level:
     org.springframework.security.oauth2: DEBUG
-    
-eventocache:
-  endpoint:
-    uri: http://localhost:8585/eventoCache
+
+security:
+  require-ssl: true
 
 server:
   port: 8081
@@ -13,3 +12,21 @@ server:
     session:
       cookie:
         path: /auth
+  ssl:
+    key-store-password: ${authpass}
+    key-store: classpath:eventoas.jks
+    key-store-type: JKS
+    key-alias: authserver
+  error:
+    whitelabel:
+      enabled: false
+
+eventoapp:
+  endpoint:
+    uri: ${EVENTOAPP_HOST}
+    #uri: https://localhost:8443
+
+eventoangular:
+  endpoint:
+    uri: ${EVENTOANGULAR_HOST}
+    #uri: http://localhost:4200

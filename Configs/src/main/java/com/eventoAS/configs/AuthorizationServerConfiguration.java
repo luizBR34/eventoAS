@@ -1,6 +1,7 @@
 package com.eventoAS.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,15 @@ import java.util.Collections;
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
+	@Value(value = "${server.ssl.key-store-password}")
+	private String authServerPassword;
+
+	@Value(value = "${eventoapp.endpoint.uri}")
+	private String eventoappHost;
+
+	@Value(value = "${eventoangular.endpoint.uri}")
+	private String eventoAngularHost;
+
 	@Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
        
@@ -43,7 +53,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 				.authorizedGrantTypes("password","authorization_code")
 				.secret(encoder().encode("secret"))
 				.scopes("user_info","read","write")
-				.redirectUris("https://localhost:8443/myapp/login/oauth2/code/eventoas")
+				.redirectUris(eventoappHost + "/myapp/login/oauth2/code/eventoas")
 				.autoApprove(true)
 				.and()
 				
@@ -51,7 +61,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 				.authorizedGrantTypes("password","authorization_code","client_credentials")
 				.secret(encoder().encode("secret"))
 				.scopes("user_info", "read")
-				.redirectUris("https://localhost:8443/myapp/login/oauth2/code/eventoas")
+				.redirectUris(eventoappHost + "/myapp/login/oauth2/code/eventoas")
 				.autoApprove(true);
 	}
 	
@@ -77,7 +87,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public JwtAccessTokenConverter accessTokenConverter() {
         final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
-        		new ClassPathResource("eventoas.jks"), "segredo".toCharArray());
+        		new ClassPathResource("eventoas.jks"), authServerPassword.toCharArray());
          converter.setKeyPair(keyStoreKeyFactory.getKeyPair("authserver"));
         return converter;
     }
@@ -93,7 +103,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+		config.setAllowedOrigins(Collections.singletonList(eventoAngularHost));
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		config.setAllowCredentials(true);
